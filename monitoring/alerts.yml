@@ -1,1 +1,11 @@
-
+groups:
+  - name: microservice_alerts
+    rules:
+      - alert: MicroserviceTargetDown
+        expr: up{job="microservice_api"} == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Microservice target is unreachable"
+          description: "Prometheus cannot scrape /metrics from lab-microservice-api for more than 1 minute."
